@@ -24,20 +24,21 @@ class TreeNode(object):
         return tree
 
 
-def isBalanced(root: Optional[TreeNode]) -> bool:
+def diameterOfBinaryTree(root: Optional[TreeNode]) -> int:
+    res = [0]
 
     def dfs(root):
         if not root:
-            return [True, 0]
-
+            return -1
+            
         left, right = dfs(root.left), dfs(root.right)
 
-        balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
-        return [balanced, 1 + max(left[1], right[1])]
+        res[0] = max(res[0], 2 + left + right)
 
-    print(dfs(root))
-    return dfs(root)[0]
+        return 1 + max(left, right)
 
+    dfs(root)
+    return res[0]
 
-root = TreeNode().list_to_tree_node([3, 9, 20, None, None, 15, 7])
-print(isBalanced(root))
+root = TreeNode().list_to_tree_node([4,-7,-3,None,None,-9,-3,9,-7,-4,None,6,None,-6,-6,None,None,0,6,5,None,9,None,None,-1,-4,None,None,None,-2])
+print(diameterOfBinaryTree(root))

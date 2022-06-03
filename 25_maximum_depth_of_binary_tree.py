@@ -24,20 +24,18 @@ class TreeNode(object):
         return tree
 
 
-def isBalanced(root: Optional[TreeNode]) -> bool:
+def maxDepth(root: Optional[TreeNode]) -> int:
 
     def dfs(root):
         if not root:
-            return [True, 0]
-
+            return 0
+            
         left, right = dfs(root.left), dfs(root.right)
 
-        balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
-        return [balanced, 1 + max(left[1], right[1])]
+        return 1 + max(left, right)
 
-    print(dfs(root))
-    return dfs(root)[0]
+    return dfs(root) 
 
 
-root = TreeNode().list_to_tree_node([3, 9, 20, None, None, 15, 7])
-print(isBalanced(root))
+root = TreeNode().list_to_tree_node([3,9,20,None,None,15,7])
+print(maxDepth(root))
