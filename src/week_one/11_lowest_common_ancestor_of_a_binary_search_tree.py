@@ -1,7 +1,6 @@
-from typing import Optional
+from copy import deepcopy
 
 
-# Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -24,20 +23,19 @@ class TreeNode(object):
         return tree
 
 
-def isBalanced(root: Optional[TreeNode]) -> bool:
-
-    def dfs(root):
-        if not root:
-            return [True, 0]
-
-        left, right = dfs(root.left), dfs(root.right)
-
-        balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
-        return [balanced, 1 + max(left[1], right[1])]
-
-    print(dfs(root))
-    return dfs(root)[0]
+def lowestCommonAncestor(root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    curr_value = root.val
+    if p.val < curr_value and q.val < curr_value:
+        return lowestCommonAncestor(root.left, p, q)
+    elif p.val > curr_value and q.val > curr_value:
+        return lowestCommonAncestor(root.right, p, q)
+    else:
+        return root
 
 
-root = TreeNode().list_to_tree_node([3, 9, 20, None, None, 15, 7])
-print(isBalanced(root))
+if __name__ == "__main__":
+    root = TreeNode().list_to_tree_node(
+        [6, 2, 8, 0, 4, 7, 9, None, None, 3, 5])
+    p = deepcopy(root.left)
+    q = deepcopy(root.left.right)
+    print(lowestCommonAncestor(root, p, q))

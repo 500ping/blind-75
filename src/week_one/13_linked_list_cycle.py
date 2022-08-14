@@ -1,4 +1,3 @@
-# Definition for singly-linked list.
 from typing import Optional
 
 
@@ -21,16 +20,16 @@ class ListNode(object):
 
 
 def hasCycle(head: Optional[ListNode]) -> bool:
-    # Floyd's Tortoise and Hare 
     slow, fast = head, head
     while fast and fast.next:
-        slow, fast = slow.next, fast.next.next
-        if fast == slow: return True
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
     return False
 
 
-head = ListNode(3)
-dummy = ListNode().list_to_LL([2,0,-4])
-head.next = dummy
-dummy.next=dummy
-print(hasCycle(head))
+if __name__ == "__main__":
+    head = ListNode().list_to_LL([2, 0, -4])
+    head.next.next.next = head
+    print(hasCycle(head))

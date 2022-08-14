@@ -1,8 +1,4 @@
-from tempfile import tempdir
-
-
 def climbStairs(n: int) -> int:
-    # fibonanci
     one, two = 1, 1
     for _ in range(n-1):
         temp = two
@@ -11,5 +7,6 @@ def climbStairs(n: int) -> int:
     return two
 
 
-n = 3
-print(climbStairs(n))
+if __name__ == "__main__":
+    n = 5
+    print(climbStairs(n))

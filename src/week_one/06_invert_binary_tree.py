@@ -1,7 +1,6 @@
 from typing import Optional
 
 
-# Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -24,21 +23,21 @@ class TreeNode(object):
         return tree
 
 
-def diameterOfBinaryTree(root: Optional[TreeNode]) -> int:
-    res = [0]
-
-    def dfs(root):
+def invertTree(root: Optional[TreeNode]) -> Optional[TreeNode]:
+    def invert(root):
         if not root:
-            return -1
-            
-        left, right = dfs(root.left), dfs(root.right)
+            return
 
-        res[0] = max(res[0], 2 + left + right)
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+        invert(root.left)
+        invert(root.right)
 
-        return 1 + max(left, right)
+    invert(root)
+    return root
 
-    dfs(root)
-    return res[0]
 
-root = TreeNode().list_to_tree_node([4,-7,-3,None,None,-9,-3,9,-7,-4,None,6,None,-6,-6,None,None,0,6,5,None,9,None,None,-1,-4,None,None,None,-2])
-print(diameterOfBinaryTree(root))
+if __name__ == "__main__":
+    root = TreeNode().list_to_tree_node([4, 2, 7, 1, 3, 6, 9])
+    print(invertTree(root))

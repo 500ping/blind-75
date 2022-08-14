@@ -1,4 +1,6 @@
-# Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode(object):
     def __init__(self, val=0, next=None):
         self.val = val
@@ -7,17 +9,18 @@ class ListNode(object):
     def __repr__(self):
         return "ListNode(val=" + str(self.val) + ", next={" + str(self.next) + "})"
 
-    def list_to_LL(self, arr):
+    @classmethod
+    def list_to_LL(cls, arr):
         if len(arr) < 1:
             return None
 
         if len(arr) == 1:
             return ListNode(arr[0])
 
-        return ListNode(arr[0], next=self.list_to_LL(arr[1:]))
+        return ListNode(arr[0], next=cls.list_to_LL(arr[1:]))
 
 
-def mergeTwoLists(list1, list2):
+def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
     dummy = tail = ListNode()
 
     while list1 and list2:
@@ -33,6 +36,8 @@ def mergeTwoLists(list1, list2):
 
     return dummy.next
 
-list1 = ListNode().list_to_LL([1,2,4]) 
-list2 = ListNode().list_to_LL([1,3,4]) 
-print(mergeTwoLists(list1, list2))
+
+if __name__ == "__main__":
+    list1 = ListNode().list_to_LL([1, 2, 4])
+    list2 = ListNode().list_to_LL([1, 3, 4])
+    print(mergeTwoLists(list1, list2))
